@@ -1,0 +1,69 @@
+<Window x:Class="PoshTerm.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PoshTerm" Width="1100" Height="680" MinWidth="420" MinHeight="240"
+        WindowStyle="None" Background="Transparent" UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="38" ResizeBorderThickness="6" GlassFrameThickness="-1"
+                      CornerRadius="0" UseAeroCaptionButtons="False" NonClientFrameEdges="None"/>
+    </WindowChrome.WindowChrome>
+    <Grid x:Name="Root">
+        <Grid.RowDefinitions>
+            <!-- Auto so the row disappears with the title bar in full screen -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border x:Name="TitleBar" Grid.Row="0" Height="38" Background="{DynamicResource ChromeBrush}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer x:Name="TabScroller" Grid.Column="0" VerticalScrollBarVisibility="Disabled"
+                              HorizontalScrollBarVisibility="Hidden" Margin="6,0,0,0" VerticalAlignment="Bottom"
+                              WindowChrome.IsHitTestVisibleInChrome="True">
+                    <StackPanel x:Name="TabStrip" Orientation="Horizontal"/>
+                </ScrollViewer>
+                <Button x:Name="NewTabButton" Grid.Column="1" Style="{StaticResource FlatButton}" Width="32"
+                        Content="&#xE710;" FontFamily="{StaticResource IconFont}" FontSize="12" ToolTip="New tab (Ctrl+Shift+T)"
+                        WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch"/>
+                <Button x:Name="TabMenuButton" Grid.Column="2" Style="{StaticResource FlatButton}" Width="28"
+                        Content="&#xE70D;" FontFamily="{StaticResource IconFont}" FontSize="10" ToolTip="Profiles and settings"
+                        WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch"/>
+                <StackPanel Grid.Column="4" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button x:Name="MinButton" Style="{StaticResource CaptionButton}" Content="&#xE921;"/>
+                    <Button x:Name="MaxButton" Style="{StaticResource CaptionButton}" Content="&#xE922;"/>
+                    <Button x:Name="CloseButton" Style="{StaticResource CaptionButton}" Content="&#xE8BB;" Tag="close"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid x:Name="ContentHost" Grid.Row="1"/>
+
+        <!-- floating layers -->
+        <Border x:Name="FindBar" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,22,0"
+                Background="{DynamicResource ChromeSolidBrush}" BorderBrush="{DynamicResource BorderBrush2}" BorderThickness="1" CornerRadius="8" Padding="6">
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="FindBox" Width="220" VerticalContentAlignment="Center" ToolTip="Find (Enter: next, Shift+Enter: previous)"/>
+                <ToggleButton x:Name="FindCase" Content="Aa" Width="30" Margin="4,0,0,0" ToolTip="Match case"/>
+                <ToggleButton x:Name="FindRegex" Content=".*" Width="30" Margin="4,0,0,0" ToolTip="Regular expression"/>
+                <TextBlock x:Name="FindCount" Width="64" TextAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MutedBrush}"/>
+                <Button x:Name="FindPrev" Content="&#xE70E;" FontFamily="{StaticResource IconFont}" Width="30" Margin="2,0,0,0" ToolTip="Previous"/>
+                <Button x:Name="FindNext" Content="&#xE70D;" FontFamily="{StaticResource IconFont}" Width="30" Margin="4,0,0,0" ToolTip="Next"/>
+                <Button x:Name="FindClose" Content="&#xE711;" FontFamily="{StaticResource IconFont}" Width="30" Margin="4,0,0,0" ToolTip="Close (Esc)"/>
+            </StackPanel>
+        </Border>
+
+        <Grid x:Name="OverlayHost" Grid.RowSpan="2" Visibility="Collapsed" Background="#66000000"/>
+
+        <Border x:Name="ToastHost" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,22"
+                Background="{DynamicResource ChromeSolidBrush}" BorderBrush="{DynamicResource BorderBrush2}" BorderThickness="1" CornerRadius="8" Padding="14,8">
+            <TextBlock x:Name="ToastText" Foreground="{DynamicResource FgBrush}"/>
+        </Border>
+    </Grid>
+</Window>

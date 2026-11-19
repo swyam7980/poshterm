@@ -1,0 +1,13 @@
+# build output
+bin/
+obj/
+dist/
+build/
+node_modules/
+.vs/
+
+# build product embedded into PoshTerm.exe; produced by scripts/build.ps1
+src/PoshTerm/Assets/posh.exe
+
+# the 200+ MB exe is above GitHub's 100 MB file limit: attach it to a GitHub Release instead of committing it
+releases/*.exe

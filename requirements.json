@@ -1,0 +1,37 @@
+{
+  "_comment": "Read by scripts/check-requirements.ps1 (run automatically by build.cmd). min = lowest accepted version; wingetId = package installed with winget when the tool is missing and you agree.",
+  "windows": { "minBuild": 17763, "name": "Windows 10 1809 or newer (x64)", "why": "ConPTY and WPF" },
+  "tools": [
+    {
+      "name": ".NET SDK",
+      "command": "dotnet",
+      "versionArgs": ["--list-sdks"],
+      "min": "9.0",
+      "wingetId": "Microsoft.DotNet.SDK.9",
+      "url": "https://dotnet.microsoft.com/download/dotnet/9.0",
+      "why": "builds the terminal app (a runtime alone is not enough, the SDK is required)"
+    },
+    {
+      "name": "Node.js",
+      "command": "node",
+      "versionArgs": ["--version"],
+      "min": "20.0",
+      "wingetId": "OpenJS.NodeJS.LTS",
+      "url": "https://nodejs.org",
+      "why": "builds posh.exe; the produced posh.exe is a copy of this node.exe (22 LTS recommended)"
+    }
+  ],
+  "npm": {
+    "name": "npm",
+    "command": "npm.cmd",
+    "versionArgs": ["--version"],
+    "min": "9.0",
+    "url": "https://nodejs.org",
+    "why": "installs the posh build tools below (ships with Node.js; only needed when they are not installed yet)",
+    "installDir": "build/posh",
+    "packages": [
+      { "name": "esbuild", "version": "0.21.5" },
+      { "name": "postject", "version": "1.0.0-alpha.6" }
+    ]
+  }
+}

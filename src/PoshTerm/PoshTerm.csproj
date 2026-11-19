@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>PoshTerm</AssemblyName>
+    <RootNamespace>PoshTerm</RootNamespace>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Product>PoshTerm</Product>
+    <Company>PoshTerm</Company>
+    <Copyright>PoshTerm</Copyright>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>$(NoWarn);WPF0001;CS8618</NoWarn>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <!-- Supporting code ships as packed resources, not loose files. -->
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+  </PropertyGroup>
+
+  <!-- Release: one PoshTerm.exe plus native support DLLs; trimmed and R2R-compiled. -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Ship as ONE exe: the posh shell is embedded and extracted at first run.
+         posh.exe is large, so only embed it for Release; Debug uses the dev node+posh.js path. -->
+    <EmbeddedResource Include="Assets\posh.exe" Condition="'$(Configuration)'=='Release' And Exists('Assets\posh.exe')">
+      <LogicalName>posh.exe</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

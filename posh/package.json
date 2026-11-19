@@ -1,0 +1,11 @@
+{
+  "name": "posh",
+  "version": "1.0.0",
+  "description": "A PowerShell-style object shell, built from scratch (the native shell of PoshTerm)",
+  "main": "posh.js",
+  "bin": { "posh": "posh.js" },
+  "license": "MIT",
+  "scripts": {
+    "test": "node test.js"
+  }
+}
